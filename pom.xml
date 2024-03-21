@@ -23,7 +23,7 @@
     <parent>
         <groupId>org.apache.camel</groupId>
         <artifactId>camel-dependencies</artifactId>
-        <version>4.0.0.redhat-00027</version>
+        <version>4.0.0.redhat-00034</version>
     </parent>
 
     <groupId>org.apache.camel.quarkus</groupId>
@@ -41,7 +41,7 @@
         <!-- Primary dependencies - maintained manually -->
         <camel.major.minor>4.0</camel.major.minor>
         <camel-community.version>${camel.major.minor}.0</camel-community.version> <!-- run after each change: cd docs && mvnd validate -->
-        <camel.version>${camel.major.minor}.0.redhat-00027</camel.version>
+        <camel.version>${camel.major.minor}.0.redhat-00034</camel.version>
         <camel.docs.components.version>${camel.major.minor}.x</camel.docs.components.version><!-- the version in Camel's docs/components/antora.yml -->
         <camel.docs.components.xref>${camel.docs.components.version}@components</camel.docs.components.xref><!-- the version in Camel's docs/components/antora.yml -->
         <camel.docs.branch>camel-${camel.major.minor}.x</camel.docs.branch><!-- The stable camel branch on which our Antora docs depends -->
@@ -53,8 +53,8 @@
         <optaplanner.version>9.37.0.Final</optaplanner.version><!-- May go back to Camel's ${optaplanner-version} when they are in sync https://repo1.maven.org/maven2/org/optaplanner/optaplanner-quarkus/ -->
         <quarkiverse-amazonservices.version>2.4.5</quarkiverse-amazonservices.version><!-- https://repo1.maven.org/maven2/io/quarkiverse/amazonservices/quarkus-amazon-services-parent/ -->
         <quarkiverse-artemis.version>3.0.1</quarkiverse-artemis.version><!-- https://repo1.maven.org/maven2/io/quarkiverse/artemis/quarkus-artemis-parent/ -->
-        <quarkiverse-cxf.version>2.2.6</quarkiverse-cxf.version><!-- https://repo1.maven.org/maven2/io/quarkiverse/cxf/quarkus-cxf-parent/ -->
-        <quarkiverse-cxf-community.version>2.2.6</quarkiverse-cxf-community.version>
+        <quarkiverse-cxf.version>2.2.7.redhat-00001</quarkiverse-cxf.version><!-- https://repo1.maven.org/maven2/io/quarkiverse/cxf/quarkus-cxf-parent/ -->
+        <quarkiverse-cxf-community.version>2.2.7</quarkiverse-cxf-community.version>
         <quarkiverse-freemarker.version>1.0.0</quarkiverse-freemarker.version><!-- https://repo1.maven.org/maven2/io/quarkiverse/freemarker/quarkus-freemarker-parent/ -->
         <quarkiverse-groovy.version>3.2.2</quarkiverse-groovy.version><!-- https://repo1.maven.org/maven2/io/quarkiverse/groovy/quarkus-groovy-parent/ -->
         <quarkiverse-jackson-jq.version>2.0.1</quarkiverse-jackson-jq.version><!-- https://repo1.maven.org/maven2/io/quarkiverse/jackson-jq/quarkus-jackson-jq-parent/ -->
@@ -99,11 +99,11 @@
         <freemarker.version>2.3.32</freemarker.version><!-- @sync io.quarkiverse.freemarker:quarkus-freemarker-parent:${quarkiverse-freemarker.version} prop:freemarker.version -->
         <geny.version>0.6.2</geny.version>
         <github-api.version>1.313</github-api.version><!-- Used in a Groovy script bellow -->
-        <google-auth-library.version>1.19.0</google-auth-library.version><!-- @sync com.google.cloud:google-cloud-pubsub:${google-cloud-pubsub.version} dep:com.google.auth:google-auth-library-oauth2-http -->
+        <google-auth-library.version>1.20.0</google-auth-library.version><!-- @sync com.google.cloud:google-cloud-pubsub:${google-cloud-pubsub.version} dep:com.google.auth:google-auth-library-oauth2-http -->
         <google-oauth-client.version>${google-oauth-client-version}</google-oauth-client.version>
-        <google-cloud-bom.version>0.204.0</google-cloud-bom.version><!-- @sync com.google.cloud:libraries-bom:${google-cloud-bom-version} dep:com.google.cloud:google-cloud-bom -->
-        <google-cloud-pubsub-bom.version>1.125.0</google-cloud-pubsub-bom.version><!-- @sync com.google.cloud:google-cloud-bom:${google-cloud-bom.version} dep:com.google.cloud:google-cloud-pubsub-bom -->
-        <google-cloud-pubsub.version>1.125.0</google-cloud-pubsub.version><!-- @sync com.google.cloud:google-cloud-pubsub-bom:${google-cloud-pubsub-bom.version} dep:com.google.cloud:google-cloud-pubsub -->
+        <google-cloud-bom.version>0.207.0</google-cloud-bom.version><!-- @sync com.google.cloud:libraries-bom:${google-cloud-bom-version} dep:com.google.cloud:google-cloud-bom -->
+        <google-cloud-pubsub-bom.version>1.125.8</google-cloud-pubsub-bom.version><!-- @sync com.google.cloud:google-cloud-bom:${google-cloud-bom.version} dep:com.google.cloud:google-cloud-pubsub-bom -->
+        <google-cloud-pubsub.version>1.125.8</google-cloud-pubsub.version><!-- @sync com.google.cloud:google-cloud-pubsub-bom:${google-cloud-pubsub-bom.version} dep:com.google.cloud:google-cloud-pubsub -->
         <google-guava-listenablefuture.version>9999.0.0.empty-to-avoid-conflict-with-guava-redhat-00001</google-guava-listenablefuture.version>
         <graalvm.version>23.0.1.0-1-redhat-00001</graalvm.version><!-- @sync io.quarkus:quarkus-bom:${quarkus.version} dep:org.graalvm.sdk:graal-sdk -->
         <graalvm-community.version>23.0.1</graalvm-community.version>
@@ -130,7 +130,7 @@
         <jnr-ffi.version>2.2.13</jnr-ffi.version><!-- Mess in web3j transitive deps -->
         <jsch.version>0.2.10</jsch.version><!-- @sync io.quarkiverse.jsch:quarkus-jsch-parent:${quarkiverse-jsch.version} prop:jsch.version -->
         <json-path.version>${json-path-version}</json-path.version>
-        <json-smart.version>2.4.10.redhat-00001</json-smart.version><!-- @sync com.jayway.jsonpath:json-path:${json-path.version} dep:net.minidev:json-smart -->
+        <json-smart.version>2.5.0.redhat-00001</json-smart.version><!-- @sync com.jayway.jsonpath:json-path:${json-path.version} dep:net.minidev:json-smart -->
         <kafka.version>3.4.0</kafka.version><!-- @sync io.quarkus:quarkus-bom:${quarkus.version} dep:org.apache.kafka:kafka-clients -->
         <kudu.version>${kudu-version}</kudu.version>
         <kotlin.version>1.8.22</kotlin.version><!-- @sync io.quarkus:quarkus-bom:${quarkus.version} dep:org.jetbrains.kotlin:kotlin-stdlib -->
@@ -138,7 +138,7 @@
         <mapstruct.version>${mapstruct-version}</mapstruct.version>
         <minio.version>8.2.2</minio.version><!-- @sync io.quarkiverse.minio:quarkus-minio-parent:${quarkiverse-minio.version} prop:minio.version -->
         <msal4j.version>1.13.8</msal4j.version><!-- @sync com.azure:azure-identity:${azure-identity.version} dep:com.microsoft.azure:msal4j -->
-        <mvel2.version>2.5.0.Final</mvel2.version><!-- @sync org.apache.camel:camel-dependencies:${camel.version} prop:mvel-version -->
+        <mvel2.version>2.5.1.Final</mvel2.version><!-- @sync org.apache.camel:camel-dependencies:${camel.version} prop:mvel-version -->
         <mybatis.version>3.5.13</mybatis.version><!-- @sync io.quarkiverse.mybatis:quarkus-parent:${quarkiverse-mybatis.version} prop:mybatis.version -->
         <oak-jackrabbit-api.version>1.48.0</oak-jackrabbit-api.version><!-- @sync org.apache.jackrabbit:jackrabbit-parent:${jackrabbit-version} prop:oak-jackrabbit-api.version.implemented -->
         <okio.version>${squareup-okio-version}</okio.version>
@@ -219,7 +219,7 @@
         <couchdb.container.image>docker.io/couchdb:2.3.1</couchdb.container.image>
         <derby.container.image>docker.io/az82/docker-derby:10.16</derby.container.image>
         <eclipse-mosquitto.container.image>docker.io/eclipse-mosquitto:1.6.15</eclipse-mosquitto.container.image>
-        <eclipse-temurin.container.image>eclipse-temurin:17-ubi9-minimal</eclipse-temurin.container.image>
+        <eclipse-temurin.container.image>eclipse-temurin:17-jdk</eclipse-temurin.container.image>
         <elasticsearch.container.image>docker.io/elasticsearch:8.8.1</elasticsearch.container.image>
         <fhir.container.image.base>docker.io/hapiproject/hapi</fhir.container.image.base>
         <fhir.container.image>${fhir.container.image.base}:v6.6.0</fhir.container.image>
