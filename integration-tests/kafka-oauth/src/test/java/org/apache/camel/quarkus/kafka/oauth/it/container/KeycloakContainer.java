@@ -29,7 +29,8 @@ import org.testcontainers.utility.MountableFile;
 public class KeycloakContainer extends FixedHostPortGenericContainer<KeycloakContainer> {
 
     public KeycloakContainer() {
-        super("quay.io/keycloak/keycloak:16.1.1");
+        // super("quay.io/keycloak/keycloak:16.1.1");
+        super(ConfigProvider.getConfig().getValue("keycloak.container.image",String.class));
         withExposedPorts(8443);
         withFixedExposedPort(8080, 8080);
         withEnv("KEYCLOAK_USER", "admin");
