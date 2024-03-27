@@ -50,7 +50,7 @@ public class KafkaKeycloakTestResource implements QuarkusTestResourceLifecycleMa
         keycloak.createHostsFile();
 
         //Start kafka container
-        String imageName = ConfigProvider.getConfig().getValue("strimzi-kafka.container.image", String.class);
+        String imageName = ConfigProvider.getConfig().getValue("kafka-oauth.container.image", String.class);
         this.kafka = new StrimziKafkaContainer(imageName)
                 .withBrokerId(1)
                 .withKafkaConfigurationMap(Map.of("listener.security.protocol.map", "JWT:SASL_PLAINTEXT,BROKER1:PLAINTEXT"))
