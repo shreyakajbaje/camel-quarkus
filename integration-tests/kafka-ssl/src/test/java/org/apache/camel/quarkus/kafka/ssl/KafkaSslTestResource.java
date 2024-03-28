@@ -24,23 +24,20 @@ import java.nio.file.Path;
 import java.util.Map;
 import java.util.stream.Stream;
 
+import io.strimzi.test.container.StrimziKafkaContainer;
 import com.github.dockerjava.api.command.InspectContainerResponse;
 import org.apache.camel.quarkus.test.support.kafka.KafkaTestResource;
 import org.apache.camel.quarkus.test.support.kafka.KafkaTestSupport;
 import org.apache.camel.util.CollectionHelper;
 import org.apache.commons.io.FileUtils;
 import org.apache.kafka.clients.CommonClientConfigs;
-import org.testcontainers.containers.KafkaContainer;
-import org.testcontainers.containers.wait.strategy.Wait;
 import org.testcontainers.images.builder.Transferable;
-import org.testcontainers.utility.DockerImageName;
 
 public class KafkaSslTestResource extends KafkaTestResource {
 
     private static final String KAFKA_KEYSTORE_FILE = "kafka-keystore.p12";
     private static final String KAFKA_KEYSTORE_PASSWORD = "kafkas3cret";
     private static final String KAFKA_KEYSTORE_TYPE = "PKCS12";
-    private static final String KAFKA_SSL_CREDS_FILE = "broker-creds";
     private static final String KAFKA_TRUSTSTORE_FILE = "kafka-truststore.p12";
     private static final String KAFKA_CERTIFICATE_SCRIPT = "generate-certificates.sh";
     private static Path configDir;
@@ -67,6 +64,7 @@ public class KafkaSslTestResource extends KafkaTestResource {
                 KAFKA_TRUSTSTORE_FILE);
 
         container = new SSLKafkaContainer(KAFKA_IMAGE_NAME);
+        container.waitForRunning();
         container.start();
 
         return CollectionHelper.mapOf(
@@ -95,9 +93,8 @@ public class KafkaSslTestResource extends KafkaTestResource {
     }
 
     // KafkaContainer does not support SSL OOTB so we need some customizations
-    static final class SSLKafkaContainer extends KafkaContainer {
-
-        SSLKafkaContainer(final DockerImageName dockerImageName) {
+    static final class SSLKafkaContainer extends StrimziKafkaContainer {
+        SSLKafkaContainer(final String dockerImageName) {
             super(dockerImageName);
 
             String protocolMap = "SSL:SSL,BROKER:PLAINTEXT";
@@ -128,9 +125,21 @@ public class KafkaSslTestResource extends KafkaTestResource {
         protected void configure() {
             super.configure();
 
-            String host = getNetwork() != null ? getNetworkAliases().get(0) : "localhost";
-            withEnv("KAFKA_ADVERTISED_LISTENERS",
-                    String.format("SSL://%s:9093,BROKER://%s:9092", host, host));
+             String protocolMap = "SSL:SSL,BROKER1:PLAINTEXT";
+            Map<String, String> config = Map.ofEntries(
+                    Map.entry("inter.broker.listener.name", "BROKER1"),
+                    Map.entry("listener.security.protocol.map", protocolMap),
+                    Map.entry("ssl.keystore.location", "/etc/kafka/secrets/" + KAFKA_KEYSTORE_FILE),
+                    Map.entry("ssl.keystore.password", KAFKA_KEYSTORE_PASSWORD),
+                    Map.entry("ssl.keystore.type", KAFKA_KEYSTORE_TYPE),
+                    Map.entry("ssl.truststore.location", "/etc/kafka/secrets/" + KAFKA_TRUSTSTORE_FILE),
+                    Map.entry("ssl.truststore.password", KAFKA_KEYSTORE_PASSWORD),
+                    Map.entry("ssl.truststore.type", KAFKA_KEYSTORE_TYPE),
+                    Map.entry("ssl.endpoint.identification.algorithm", ""));
+
+            withBrokerId(1);
+            withKafkaConfigurationMap(config);
+            withLogConsumer(frame -> System.out.print(frame.getUtf8String()));
         }
 
         @Override
@@ -147,9 +156,6 @@ public class KafkaSslTestResource extends KafkaTestResource {
                         }
                     });
 
-            copyFileToContainer(
-                    Transferable.of(KAFKA_KEYSTORE_PASSWORD.getBytes(StandardCharsets.UTF_8)),
-                    "/etc/kafka/secrets/" + KAFKA_SSL_CREDS_FILE);
         }
     }
 }
