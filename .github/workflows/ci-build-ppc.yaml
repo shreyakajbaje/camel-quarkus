@@ -35,6 +35,10 @@ jobs:
   pre-build-checks:
     if: github.repository == 'apache/camel-quarkus'
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        os: [ubuntu-22.04]
+        arch: [x86_64, ppc64le]
     outputs:
       continue-build: ${{ steps.pre-build-checks.outputs.continue-build }}
       run-checks: ${{ steps.init.outputs.run-checks }}
