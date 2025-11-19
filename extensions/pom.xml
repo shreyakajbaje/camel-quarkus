@@ -23,7 +23,7 @@
     <parent>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-build-parent</artifactId>
-        <version>3.29.0-SNAPSHOT</version>
+        <version>3.30.0-SNAPSHOT</version>
         <relativePath>../poms/build-parent/pom.xml</relativePath>
     </parent>
 
@@ -35,6 +35,7 @@
     <modules>
         <!-- extensions a..z; do not remove this comment, it is important when sorting via  mvn process-resources -Pformat -->
         <module>activemq</module>
+        <module>activemq6</module>
         <module>amqp</module>
         <module>arangodb</module>
         <module>as2</module>
@@ -128,6 +129,7 @@
         <module>graphql</module>
         <module>grok</module>
         <module>groovy</module>
+        <module>groovy-xml</module>
         <module>grpc</module>
         <module>gson</module>
         <module>hashicorp-vault</module>
@@ -174,6 +176,8 @@
         <module>kudu</module>
         <module>langchain4j-agent</module>
         <module>langchain4j-chat</module>
+        <module>langchain4j-embeddings</module>
+        <module>langchain4j-embeddingstore</module>
         <module>langchain4j-tokenizer</module>
         <module>langchain4j-tools</module>
         <module>langchain4j-web-search</module>
@@ -189,6 +193,7 @@
         <module>management</module>
         <module>mapstruct</module>
         <module>master</module>
+        <module>mdc</module>
         <module>micrometer</module>
         <module>microprofile-fault-tolerance</module>
         <module>microprofile-health</module>

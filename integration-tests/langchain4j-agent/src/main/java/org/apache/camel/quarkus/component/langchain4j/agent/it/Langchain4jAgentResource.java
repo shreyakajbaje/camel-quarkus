@@ -33,9 +33,10 @@ import org.apache.camel.FluentProducerTemplate;
 import org.apache.camel.component.langchain4j.agent.api.AiAgentBody;
 import org.apache.camel.quarkus.component.langchain4j.agent.it.guardrail.ValidationSuccessInputGuardrail;
 import org.apache.camel.quarkus.component.langchain4j.agent.it.guardrail.ValidationSuccessOutputGuardrail;
+import org.apache.camel.quarkus.component.langchain4j.agent.it.tool.AdditionTool;
 
-import static org.apache.camel.component.langchain4j.agent.Headers.MEMORY_ID;
-import static org.apache.camel.component.langchain4j.agent.Headers.SYSTEM_MESSAGE;
+import static org.apache.camel.component.langchain4j.agent.api.Headers.MEMORY_ID;
+import static org.apache.camel.component.langchain4j.agent.api.Headers.SYSTEM_MESSAGE;
 
 @Path("/langchain4j-agent")
 @ApplicationScoped
@@ -205,5 +206,23 @@ public class Langchain4jAgentResource {
                 .request(String.class);
 
         return Response.ok(result.trim()).build();
+    }
+
+    @Path("/custom/tools")
+    @POST
+    @Consumes(MediaType.TEXT_PLAIN)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response chatWithCustomTools(String userMessage) {
+        try {
+            String result = producerTemplate.to("direct:agent-with-custom-tools")
+                    .withBody(userMessage)
+                    .request(String.class);
+
+            return Response.ok(
+                    Map.of("result", result.trim(), "toolWasInvoked", AdditionTool.isToolWasInvoked()))
+                    .build();
+        } finally {
+            AdditionTool.reset();
+        }
     }
 }

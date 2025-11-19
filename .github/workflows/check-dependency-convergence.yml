@@ -46,7 +46,7 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
       - name: Checkout
-        uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
+        uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd # v5.0.1
       - name: Set Build Info
         run: |
           [ ! -d ~/build-data ] && mkdir -p ~/build-data
@@ -79,6 +79,8 @@ jobs:
 
           # List of Maven GAVs to ignore from the dependency convergence check results. Keep sorted alphabetically
           IGNORED_GAVS=(
+            # Mismatch between camel-quarkus-djl & camel-quarkus-langchain4j-embeddings
+            "ai.djl:api"
             # Mismatch between camel-quarkus-aws-xray & camel-quarkus-aws2-kinesis
             "com.amazonaws:aws-java-sdk-core"
             # Mismatch between camel-quarkus-aws-xray & camel-quarkus-aws2-kinesis
@@ -119,8 +121,6 @@ jobs:
             "org.apache.mina:mina-core"
             # Mismatch between camel-quarkus-jcr & camel-quarkus-tika
             "org.apache.tika:tika-core"
-            # Mismatch between camel-quarkus-as2, camel-quarkus-avro-deployment & camel-quarkus-cxf-soap-deployment
-            "org.apache.velocity:velocity-engine-core"
             # Mismatch between camel-quarkus-flink, camel-quarkus-junit5, camel-quarkus-nitrite & camel-quarkus-redis
             "org.objenesis:objenesis"
             # Mismatch between camel-quarkus-rest-openapi-deployment & camel-quarkus-smallrye-reactive-messaging-deployment
@@ -129,8 +129,6 @@ jobs:
             "org.ehcache:ehcache"
             # Mismatch between camel-quarkus-activemq & camel-quarkus-stomp
             "org.fusesource.hawtbuf:hawtbuf"
-            # Mismatch between camel-quarkus-aws2-kinesis & camel-quarkus-pubnub
-            "org.jetbrains.kotlinx:kotlinx-datetime-jvm"
             # Mismatch between camel-quarkus-aws2-jgroups & camel-quarkus-jgroups-raft
             "org.jgroups:jgroups"
             # Mismatch between camel-quarkus-box, camel-quarkus-oaipmh & camel-quarkus-shiro
@@ -181,7 +179,6 @@ jobs:
             echo "Either fix the problem dependencies or add GAVs to the IGNORED_GAVS list in check-dependency-convergence.yml"
             exit 1
           fi
-      - name: Report Build Failure
-        if: failure() || cancelled()
+      - name: Report Build Status
         run: |
           ./mvnw ${CQ_MAVEN_ARGS} verify -N -Pbuild-notification -Dstatus=${{ job.status }} -DissueId=${{ env.ISSUE_ID }} -Dtoken=${{ secrets.GITHUB_TOKEN }} -DbuildId=$(cat ~/build-data/build-id.txt) -Drepo=${GITHUB_REPOSITORY} -Dbranch=$(git rev-parse --abbrev-ref HEAD) -Dbranch-commit=$(cat ~/build-data/main-sha.txt)

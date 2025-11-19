@@ -30,7 +30,7 @@ import io.quarkus.deployment.builditem.ExtensionSslNativeSupportBuildItem;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.NativeImageSecurityProviderBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
-import io.quarkus.deployment.builditem.nativeimage.RuntimeReinitializedClassBuildItem;
+import io.quarkus.deployment.builditem.nativeimage.RuntimeInitializedClassBuildItem;
 
 class KuduProcessor {
     private static final String[] JDK_LOGIN_MODULE_CLASSES = {
@@ -71,7 +71,7 @@ class KuduProcessor {
     }
 
     @BuildStep
-    void runtimeReinitializedClasses(BuildProducer<RuntimeReinitializedClassBuildItem> runtimeReinitializedClass) {
+    void runtimeInitializedClasses(BuildProducer<RuntimeInitializedClassBuildItem> runtimeInitializedClass) {
         // Required due to Protobuf / Kudu usage of sun.misc.Unsafe to compute static field values
         Stream.of("com.google.protobuf.UnsafeUtil",
                 "com.google.common.primitives.UnsignedBytes$LexicographicalComparatorHolder",
@@ -79,7 +79,12 @@ class KuduProcessor {
                 "org.apache.kudu.client.TableLocationsCache",
                 "org.apache.kudu.client.PartitionSchema",
                 "org.apache.kudu.client.PartitionSchema$BoundsComparator")
-                .map(RuntimeReinitializedClassBuildItem::new)
-                .forEach(runtimeReinitializedClass::produce);
+                .map(RuntimeInitializedClassBuildItem::new)
+                .forEach(runtimeInitializedClass::produce);
+    }
+
+    @BuildStep
+    RuntimeInitializedClassBuildItem runtimeInitializedClasses() {
+        return new RuntimeInitializedClassBuildItem("com.google.protobuf.JavaFeaturesProto");
     }
 }

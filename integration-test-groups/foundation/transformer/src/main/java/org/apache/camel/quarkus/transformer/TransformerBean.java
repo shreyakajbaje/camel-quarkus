@@ -18,12 +18,16 @@ package org.apache.camel.quarkus.transformer;
 
 import io.quarkus.runtime.annotations.RegisterForReflection;
 
-@RegisterForReflection(fields = false, methods = false)
+@RegisterForReflection
 public class TransformerBean {
     private final String message;
 
     public TransformerBean(String message) {
         this.message = message;
+    }
+
+    public String getMessage() {
+        return message;
     }
 
     @Override

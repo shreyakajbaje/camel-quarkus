@@ -38,6 +38,7 @@ group-02:
   - aws2
   - beanio
   - google-pubsub
+  - groovy-xml
   - grpc
   - iso8583
   - jackson-avro
@@ -80,6 +81,7 @@ group-04:
   - jta
   - kudu
   - leveldb
+  - mdc
   - micrometer
   - minio
   - mongodb-grouped
@@ -126,6 +128,7 @@ group-07:
   - geocoder
   - jslt
   - ldap
+  - langchain4j-embeddings
   - lumberjack
   - ognl
   - olingo4
@@ -154,6 +157,7 @@ group-08:
   - zendesk
 group-09:
   - activemq
+  - activemq6
   - amqp
   - debug
   - ftp
@@ -230,6 +234,7 @@ group-13:
   - java-joor-dsl
   - jdbc-grouped
   - kubernetes
+  - langchain4j-embeddingstore
   - salesforce
   - sap-netweaver
   - servicenow

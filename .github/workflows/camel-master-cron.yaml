@@ -53,7 +53,7 @@ jobs:
           [ ! -d ~/build-data ] && mkdir -p ~/build-data
           echo "${{ github.run_id }}-${{ github.run_number }}-$(uuidgen)" > ~/build-data/build-id.txt
       - name: Checkout
-        uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
+        uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd # v5.0.1
         with:
           ref: camel-main
           fetch-depth: 0
@@ -91,7 +91,7 @@ jobs:
           ls -lh ${{ runner.temp }}/maven-repo.tgz
           df -h /
       - name: Persist Maven Repo
-        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        uses: actions/upload-artifact@330a01c490aca151604b8cf639adc76d48f6c5d4 # v5.0.0
         with:
           name: maven-repo
           path: ${{ runner.temp }}/maven-repo.tgz
@@ -145,7 +145,7 @@ jobs:
       matrix: ${{ fromJson(needs.initial-mvn-install.outputs.matrix) }}
     steps:
       - name: Download Maven Repo
-        uses: actions/download-artifact@634f93cb2916e3fdff6788551b99b062d0335ce0 # v5.0.0
+        uses: actions/download-artifact@018cc2cf5baa6db3ef3c5f8a56943fffe632ef53 # v6.0.0
         with:
           name: maven-repo
           path: ..
@@ -157,7 +157,7 @@ jobs:
           rm -f ../maven-repo.tgz
           df -h /
       - name: Checkout
-        uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
+        uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd # v5.0.1
         with:
           ref: camel-main
           fetch-depth: 0
@@ -232,7 +232,7 @@ jobs:
       MAVEN_OPTS: -Xmx3000m
     steps:
       - name: Download Maven Repo
-        uses: actions/download-artifact@634f93cb2916e3fdff6788551b99b062d0335ce0 # v5.0.0
+        uses: actions/download-artifact@018cc2cf5baa6db3ef3c5f8a56943fffe632ef53 # v6.0.0
         with:
           name: maven-repo
           path: ..
@@ -244,7 +244,7 @@ jobs:
           rm -f ../maven-repo.tgz
           df -h /
       - name: Checkout
-        uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
+        uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd # v5.0.1
         with:
           ref: camel-main
           fetch-depth: 0
@@ -334,7 +334,7 @@ jobs:
       MAVEN_OPTS: -Xmx3000m
     steps:
       - name: Download Maven Repo
-        uses: actions/download-artifact@634f93cb2916e3fdff6788551b99b062d0335ce0 # v5.0.0
+        uses: actions/download-artifact@018cc2cf5baa6db3ef3c5f8a56943fffe632ef53 # v6.0.0
         with:
           name: maven-repo
           path: ..
@@ -346,7 +346,7 @@ jobs:
           rm -f ../maven-repo.tgz
           df -h /
       - name: Checkout
-        uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
+        uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd # v5.0.1
         with:
           ref: camel-main
           fetch-depth: 0
@@ -388,7 +388,7 @@ jobs:
       MAVEN_OPTS: -Xmx3000m
     steps:
       - name: Download Maven Repo
-        uses: actions/download-artifact@634f93cb2916e3fdff6788551b99b062d0335ce0 # v5.0.0
+        uses: actions/download-artifact@018cc2cf5baa6db3ef3c5f8a56943fffe632ef53 # v6.0.0
         with:
           name: maven-repo
           path: ..
@@ -400,7 +400,7 @@ jobs:
           rm -f ../maven-repo.tgz
           df -h /
       - name: Checkout
-        uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
+        uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd # v5.0.1
         with:
           ref: camel-main
           fetch-depth: 0
@@ -445,7 +445,7 @@ jobs:
       MAVEN_OPTS: -Xmx3000m
     steps:
       - name: Download Maven Repo
-        uses: actions/download-artifact@634f93cb2916e3fdff6788551b99b062d0335ce0 # v5.0.0
+        uses: actions/download-artifact@018cc2cf5baa6db3ef3c5f8a56943fffe632ef53 # v6.0.0
         with:
           name: maven-repo
           path: ..
@@ -455,7 +455,7 @@ jobs:
           tar -xzf ../maven-repo.tgz -C ~
           rm -f ../maven-repo.tgz
       - name: Checkout
-        uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
+        uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd # v5.0.1
         with:
           ref: camel-main
           fetch-depth: 0
@@ -503,7 +503,7 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
       - name: Download Maven Repo
-        uses: actions/download-artifact@634f93cb2916e3fdff6788551b99b062d0335ce0 # v5.0.0
+        uses: actions/download-artifact@018cc2cf5baa6db3ef3c5f8a56943fffe632ef53 # v6.0.0
         with:
           name: maven-repo
           path: ..
@@ -515,7 +515,7 @@ jobs:
           rm -f ../maven-repo.tgz
           df -h /
       - name: Checkout
-        uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
+        uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd # v5.0.1
         with:
           ref: camel-main
           fetch-depth: 0
@@ -588,7 +588,7 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
       - name: Download Maven Repo
-        uses: actions/download-artifact@634f93cb2916e3fdff6788551b99b062d0335ce0 # v5.0.0
+        uses: actions/download-artifact@018cc2cf5baa6db3ef3c5f8a56943fffe632ef53 # v6.0.0
         with:
           name: maven-repo
           path: ..
@@ -600,7 +600,7 @@ jobs:
           rm -f ../maven-repo.tgz
           df -h /
       - name: Checkout
-        uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
+        uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd # v5.0.1
         with:
           ref: camel-main
           fetch-depth: 0

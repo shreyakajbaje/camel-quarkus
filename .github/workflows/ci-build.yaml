@@ -41,10 +41,12 @@ on:
       - '.github/workflows/camel-master-cron.yaml'
       - '.github/workflows/check-dependency-convergence.yml'
       - '.github/workflows/generate-sbom-main.yml'
+      - '.github/workflows/jdk25-build.yaml'
       - '.github/workflows/label-issue.yaml'
       - '.github/workflows/pr-validate.yml'
       - '.github/workflows/quarkus-master-cron.yaml'
       - '.github/workflows/synchronize-dependabot-branch.yaml'
+      - '.github/workflows/pr-doc-validation.yaml'
       - 'docs/antora.yml'
       - 'release-utils/**'
   pull_request:
@@ -73,6 +75,7 @@ on:
       - '.github/workflows/quarkus-lts-ci-build.yaml'
       - '.github/workflows/quarkus-master-cron.yaml'
       - '.github/workflows/synchronize-dependabot-branch.yaml'
+      - '.github/workflows/pr-doc-validation.yaml'
       - 'docs/antora.yml'
       - 'release-utils/**'
 
@@ -110,7 +113,7 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
       - name: Checkout
-        uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
+        uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd # v5.0.1
         if: steps.init.outputs.run-checks == 'true'
         with:
           ref: ${{ env.CHECKOUT_REF }}
@@ -139,7 +142,7 @@ jobs:
             echo "continue-build=true" >> $GITHUB_OUTPUT
           fi
       - name: Upload dependabot changeset
-        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        uses: actions/upload-artifact@330a01c490aca151604b8cf639adc76d48f6c5d4 # v5.0.0
         if: steps.pre-build-checks.outputs.continue-build == 'false'
         with:
           name: dependabot-pr-changeset
@@ -182,7 +185,7 @@ jobs:
             && sed -i '/<module>integration-tests<\/module>/d' pom.xml \
             && ./mvnw ${CQ_MAVEN_ARGS} clean install -Dquickly -Prelocations -T1C
       - name: Checkout
-        uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
+        uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd # v5.0.1
         with:
           ref: ${{ env.CHECKOUT_REF }}
           fetch-depth: 0
@@ -206,7 +209,7 @@ jobs:
           ls -lh ${{ runner.temp }}/maven-repo.tgz
           df -h /
       - name: Persist Maven Repo
-        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        uses: actions/upload-artifact@330a01c490aca151604b8cf639adc76d48f6c5d4 # v5.0.0
         with:
           name: maven-repo
           path: ${{ runner.temp }}/maven-repo.tgz
@@ -252,7 +255,7 @@ jobs:
       matrix: ${{ fromJson(needs.initial-mvn-install.outputs.matrix) }}
     steps:
       - name: Checkout
-        uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
+        uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd # v5.0.1
         with:
           ref: ${{ env.CHECKOUT_REF }}
           fetch-depth: 0
@@ -264,7 +267,7 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
       - name: Download Maven Repo
-        uses: actions/download-artifact@634f93cb2916e3fdff6788551b99b062d0335ce0 # v5.0.0
+        uses: actions/download-artifact@018cc2cf5baa6db3ef3c5f8a56943fffe632ef53 # v6.0.0
         with:
           name: maven-repo
           path: ..
@@ -330,7 +333,7 @@ jobs:
       MAVEN_OPTS: -Xmx3000m
     steps:
       - name: Checkout
-        uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
+        uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd # v5.0.1
         with:
           ref: ${{ env.CHECKOUT_REF }}
           fetch-depth: 0
@@ -340,7 +343,7 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
       - name: Download Maven Repo
-        uses: actions/download-artifact@634f93cb2916e3fdff6788551b99b062d0335ce0 # v5.0.0
+        uses: actions/download-artifact@018cc2cf5baa6db3ef3c5f8a56943fffe632ef53 # v6.0.0
         with:
           name: maven-repo
           path: ..
@@ -422,7 +425,7 @@ jobs:
       MAVEN_OPTS: -Xmx3000m
     steps:
       - name: Checkout
-        uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
+        uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd # v5.0.1
         with:
           ref: ${{ env.CHECKOUT_REF }}
           fetch-depth: 0
@@ -432,7 +435,7 @@ jobs:
           distribution: 'temurin'
           java-version: ${{ matrix.java }}
       - name: Download Maven Repo
-        uses: actions/download-artifact@634f93cb2916e3fdff6788551b99b062d0335ce0 # v5.0.0
+        uses: actions/download-artifact@018cc2cf5baa6db3ef3c5f8a56943fffe632ef53 # v6.0.0
         with:
           name: maven-repo
           path: ..
@@ -468,7 +471,7 @@ jobs:
       MAVEN_OPTS: -Xmx3000m
     steps:
       - name: Checkout
-        uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
+        uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd # v5.0.1
         with:
           ref: ${{ env.CHECKOUT_REF }}
           fetch-depth: 0
@@ -480,7 +483,7 @@ jobs:
           distribution: 'temurin'
           java-version: '21'
       - name: Download Maven Repo
-        uses: actions/download-artifact@634f93cb2916e3fdff6788551b99b062d0335ce0 # v5.0.0
+        uses: actions/download-artifact@018cc2cf5baa6db3ef3c5f8a56943fffe632ef53 # v6.0.0
         with:
           name: maven-repo
           path: ..
@@ -520,7 +523,7 @@ jobs:
       MAVEN_OPTS: -Xmx3000m
     steps:
       - name: Checkout
-        uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
+        uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd # v5.0.1
         with:
           ref: ${{ env.CHECKOUT_REF }}
           fetch-depth: 0
@@ -530,7 +533,7 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
       - name: Download Maven Repo
-        uses: actions/download-artifact@634f93cb2916e3fdff6788551b99b062d0335ce0 # v5.0.0
+        uses: actions/download-artifact@018cc2cf5baa6db3ef3c5f8a56943fffe632ef53 # v6.0.0
         with:
           name: maven-repo
           path: ..
@@ -563,14 +566,14 @@ jobs:
       matrix: ${{ fromJson(needs.initial-mvn-install.outputs.examples-matrix) }}
     steps:
       - name: Checkout
-        uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
+        uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd # v5.0.1
       - name: Set up JDK 17
         uses: actions/setup-java@dded0888837ed1f317902acf8a20df0ad188d165 # v5.0.0
         with:
           distribution: 'temurin'
           java-version: '17'
       - name: Download Maven Repo
-        uses: actions/download-artifact@634f93cb2916e3fdff6788551b99b062d0335ce0 # v5.0.0
+        uses: actions/download-artifact@018cc2cf5baa6db3ef3c5f8a56943fffe632ef53 # v6.0.0
         with:
           name: maven-repo
           path: ..

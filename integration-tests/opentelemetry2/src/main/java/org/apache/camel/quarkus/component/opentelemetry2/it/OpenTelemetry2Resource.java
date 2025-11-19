@@ -20,6 +20,7 @@ import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;
+import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
 import org.apache.camel.ProducerTemplate;
@@ -36,6 +37,20 @@ public class OpenTelemetry2Resource {
     @Produces(MediaType.TEXT_PLAIN)
     public String traceRoute() {
         return producerTemplate.requestBody("direct:start", null, String.class);
+    }
+
+    @Path("/greet/{name}")
+    @GET
+    @Produces(MediaType.TEXT_PLAIN)
+    public String traceRoute(@PathParam("name") String name) {
+        return producerTemplate.requestBody("direct:greet", name, String.class);
+    }
+
+    @Path("/jdbc/query")
+    @GET
+    @Produces(MediaType.TEXT_PLAIN)
+    public long jdbcQuery() {
+        return producerTemplate.requestBody("direct:jdbcQuery", null, Long.class);
     }
 
 }

@@ -21,7 +21,8 @@ import org.apache.camel.builder.RouteBuilder;
 public class TransformerRoutes extends RouteBuilder {
     @Override
     public void configure() throws Exception {
-        transformer().withDefaults();
+        transformer()
+                .withDefaults();
 
         from("direct:transformBeanToString")
                 .inputType(TransformerBean.class)
@@ -32,5 +33,6 @@ public class TransformerRoutes extends RouteBuilder {
                 .inputType(TransformerBean.class)
                 .outputType("application-octet-stream")
                 .log("Transformed TransformerBean to byte[]");
+
     }
 }
