@@ -91,7 +91,7 @@ env:
 jobs:
   pre-build-checks:
     # if: github.repository == 'apache/camel-quarkus'
-    runs-on: ubuntu-24.04-ppc64le
+    runs-on: camel-quarkus
     outputs:
       continue-build: ${{ steps.pre-build-checks.outputs.continue-build }}
       run-checks: ${{ steps.init.outputs.run-checks }}
