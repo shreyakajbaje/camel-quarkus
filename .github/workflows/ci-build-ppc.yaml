@@ -149,7 +149,7 @@ jobs:
 
   initial-mvn-install:
     if: needs.pre-build-checks.outputs.continue-build == 'true'
-    runs-on: ubuntu-24.04-ppc64le
+    runs-on: camel-quarkus
     needs: pre-build-checks
     outputs:
       matrix: ${{ steps.set-native-matrix.outputs.matrix }}
