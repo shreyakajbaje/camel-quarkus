@@ -150,7 +150,7 @@ jobs:
 
   initial-mvn-install:
     if: needs.pre-build-checks.outputs.continue-build == 'true'
-    runs-on: camel-quarkus
+    runs-on: camel-quarkus-gha
     needs: pre-build-checks
     outputs:
       matrix: ${{ steps.set-native-matrix.outputs.matrix }}
