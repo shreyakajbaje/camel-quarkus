@@ -108,6 +108,7 @@ jobs:
         uses: actions/setup-java@dded0888837ed1f317902acf8a20df0ad188d165 # v5.0.0
         if: steps.init.outputs.run-checks == 'true'
         with:
+          architecture: 'ppc64le'
           distribution: 'temurin'
           java-version: '17'
       - name: Checkout
