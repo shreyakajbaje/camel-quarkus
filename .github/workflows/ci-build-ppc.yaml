@@ -91,7 +91,7 @@ env:
 jobs:
   pre-build-checks:
     # if: github.repository == 'apache/camel-quarkus'
-    runs-on: camel-quarkus
+    runs-on: camel-quarkus-gha
     outputs:
       continue-build: ${{ steps.pre-build-checks.outputs.continue-build }}
       run-checks: ${{ steps.init.outputs.run-checks }}
