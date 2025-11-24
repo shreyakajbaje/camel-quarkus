@@ -150,7 +150,7 @@ jobs:
 
   initial-mvn-install:
     if: needs.pre-build-checks.outputs.continue-build == 'true'
-    runs-on: camel-quarkus-gha
+    runs-on: self-hosted
     needs: pre-build-checks
     outputs:
       matrix: ${{ steps.set-native-matrix.outputs.matrix }}
@@ -240,7 +240,7 @@ jobs:
           echo "examples-matrix=${EXAMPLES_MATRIX}" >> $GITHUB_OUTPUT
           
   functional-extension-tests:
-    runs-on: ubuntu-24.04-ppc64le
+    runs-on: self-hosted
     needs: initial-mvn-install
     if: github.event_name != 'pull_request' || !contains(github.event.pull_request.labels.*.name, 'JVM')
     env:
@@ -329,7 +329,7 @@ jobs:
           test-report-xml-base-dir: catalog
 
   extensions-jvm-tests:
-    runs-on: ubuntu-24.04-ppc64le
+    runs-on: self-hosted
     needs: initial-mvn-install
     strategy:
       fail-fast: false
@@ -375,7 +375,7 @@ jobs:
 
   integration-tests-alternative-jdk:
     name: Integration Tests Alternative JDK 21 ${{matrix.name}}
-    runs-on: ubuntu-24.04-ppc64le
+    runs-on: self-hosted
     needs: initial-mvn-install
     if: github.event_name != 'pull_request' || !contains(github.event.pull_request.labels.*.name, 'JVM')
     strategy:
