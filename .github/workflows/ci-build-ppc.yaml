@@ -165,6 +165,7 @@ jobs:
       - name: Set up JDK 17
         uses: actions/setup-java@v5 # v5.0.0
         with:
+          architecture: 'ppc64le'
           distribution: 'temurin'
           java-version: '17'
       - name: Build Camel
@@ -254,6 +255,7 @@ jobs:
       - name: Set up JDK 17
         uses: actions/setup-java@v5 # v5.0.0
         with:
+          architecture: 'ppc64le'
           distribution: 'temurin'
           java-version: '17'
       - name: Download Maven Repo
@@ -394,6 +396,7 @@ jobs:
       - name: Set up JDK 21
         uses: actions/setup-java@v5 # v5.0.0
         with:
+          architecture: 'ppc64le'
           distribution: 'temurin'
           java-version: '21'
       - name: Download Maven Repo
@@ -444,6 +447,7 @@ jobs:
       - name: Set up JDK 17
         uses: actions/setup-java@v5 # v5.0.0
         with:
+          architecture: 'ppc64le'
           distribution: 'temurin'
           java-version: '17'
       - name: Download Maven Repo
@@ -484,6 +488,7 @@ jobs:
       - name: Set up JDK 17
         uses: actions/setup-java@v5 # v5.0.0
         with:
+          architecture: 'ppc64le'
           distribution: 'temurin'
           java-version: '17'
       - name: Download Maven Repo
